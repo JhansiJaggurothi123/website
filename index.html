@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup.css">
+    <title>Document</title>
+    <style>
+        body {
+            background: url(background.jpg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Add transparency to the background */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333; /* Change label color */
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: calc(100% - 22px); /* Adjust input width */
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="submit"] {
+            background-color: gray;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: darkgray; /* Change hover background color */
+        }
+        .password {
+            position: relative;
+            margin-bottom: 15px; /* Adjust margin */
+        }
+        .password input {
+            width: calc(100% - 32px); /* Adjust input width */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        .pass-icon {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            width: 24px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            var emailOrNumber = document.getElementById("email_or_number").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+            var usernameRegex = /^[a-zA-Z]{1,6}$/;
+            var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{9,}$/;
+            if (!username.match(usernameRegex)) {
+                alert("Username should contain only letters and be up to 6 characters long.");
+                return false;
+            }
+            if (!emailRegex.test(emailOrNumber)) {
+                alert("Please enter a valid email");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            if (!password.match(passwordRegex)) {
+                alert("Password should contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 9 characters long.");
+                return false;
+            }
+            document.getElementById('signup').action = "home.html";
+            document.getElementById('signup').submit();
+            return true; 
+        }
+
+        var a;
+        function pass(){
+            if(a==1){
+                document.getElementById('password').type='password';
+                document.getElementById('pass-icon').src='hiden.png' ;
+                a=0;
+            }
+            else
+            {
+                document.getElementById('password').type='text';
+                document.getElementById('pass-icon').src="show.jpg";
+                a=1;
+            }
+        }
+    </script>
+</head>
+<body>
+    <form id="signup" onsubmit="return validateForm(event)" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter Username" required>
+        <label for="email">Email :</label>
+        <input type="text" id="email" name="email" placeholder="Enter email" required>
+        <label for="password" class="password">Password:</label>
+        <div class="password">
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+            <img src="hiden.png" onclick="pass()" class="pass-icon" id="pass-icon">
+        </div>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="confirm password" required>
+        <input type="submit" value="Signup">
+    </form>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="signup.css">
+    <title>Document</title>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            var emailOrNumber = document.getElementById("email_or_number").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+            var usernameRegex = /^[a-zA-Z]{1,6}$/;
+            var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; 
+            var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{9,}$/;
+            if (!username.match(usernameRegex)) {
+                alert("Username should contain only letters and be up to 6 characters long.");
+                return false;
+            }
+            if (!emailRegex.match(emailRegex)) {
+                alert("Please enter a valid email ");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return false;
+            }
+            if (!password.match(passwordRegex)) {
+                alert("Password should contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 9 characters long.");
+                return false;
+            }
+            document.getElementById('signup').action = "home.html";
+            document.getElementById('signup').submit();
+            return true; 
+        }
+        var a;
+        function pass(){
+            if(a==1){
+                document.getElementById('password').type='password';
+                document.getElementById('pass-icon').src='hiden.png' ;
+            a=0;
+            }
+            else
+            {
+                document.getElementById('password').type='text';
+                document.getElementById('pass-icon').src="show.jpg";
+                a=1;
+            }
+        }
+       
+    </script>
+</head>
+<body>
+    <form  id="signup"   onsubmit="return validateForm(event)" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter Username" required>
+        <label for="email">Email :</label>
+        <input type="text" id="email" name="email" placeholder="Enter email" required>
+        <label for="password">Password:</label>
+        <div class="password">
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <img src="hiden.png" onclick="pass()" class="pass-icon" id="pass-icon" >
+        </div>
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="confirm password" required>
+        <input  type="submit" value="Signup">
+    </form>
+</body>
+</html>
