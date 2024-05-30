@@ -41,6 +41,21 @@ body {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 16px;
+
+}
+.password {
+    position: relative;
+}
+.password input {
+    padding-right: 10px; 
+}
+.pass-icon {
+    position: absolute;
+    top: 40%;
+    right: 5px; 
+    transform: translateY(-50%);
+    width: 30px;
+    cursor: pointer;
 }
 
 .form-group button {
